@@ -12,7 +12,7 @@ public class Snake {
     private Color snakeColor = Color.WHITESMOKE;
 
     public Snake() {
-
+        // TODO: Give the snake a random direction from the enum?
     }
 
 
