@@ -24,7 +24,7 @@ public class HelloApplication extends Application {
 
         // Main Menu
         Label titleLabel = new Label("SNAKE");
-        titleLabel.setPadding(new Insets(80));
+        titleLabel.setPadding(new Insets(40));
 
         Button resumeButton = new Button("Resume Game");
         resumeButton.setDisable(true);
@@ -45,7 +45,7 @@ public class HelloApplication extends Application {
 
 
         //
-        Scene scene = new Scene(menuBorderPane, 800, 800);
+        Scene scene = new Scene(menuBorderPane, 600, 600);
 
         stage.setTitle("Sssssnake");
         stage.setScene(scene);
