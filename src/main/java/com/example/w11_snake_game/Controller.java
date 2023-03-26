@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    private Double snakeSize = 100.0;
+    private Double snakeSize = 50.0;
     private Double foodSize = 50.0;
     private Rectangle snakeHead;
     private Rectangle snakeTail1;
@@ -54,6 +55,8 @@ public class Controller implements Initializable {
     private Button startButton;
     @FXML
     private Label scoreLabel, snakeLengthLabel;
+    @FXML
+    private CheckBox insaneModeCheckBox = new CheckBox();
 
     Timeline timeline;
     private double tickLength = 0.3;
@@ -105,7 +108,7 @@ public class Controller implements Initializable {
             //System.out.println("Snake Head Position: " + (xPos + snakeHead.getX()) + ", " + (yPos + snakeHead.getY()));
             eatFood();
             gameTicks++;
-            // move food at random
+            // Respawn food at random
             while (gameTicks > 0) {
                 int randomSpawn = (int) (Math.random() * 100) + 1;
                 int randomSpawnUpperBorder = 10;
@@ -117,9 +120,9 @@ public class Controller implements Initializable {
                 }
                 break;
             }
-            // rotate at random
+            // Insane mode random rotation
             Rotate rotate = new Rotate(90, anchorPane.getWidth() / 2, anchorPane.getHeight() / 2);
-            while (gameTicks > 0) {
+            while (gameTicks > 0 && insaneModeCheckBox.isSelected()) {
                 int rotateRandom = (int) (Math.random() * 100) + 1;
                 int randomSpawnUpperBorder = 5;
                 if (tickLength <= tickLength / 2) {
@@ -130,6 +133,7 @@ public class Controller implements Initializable {
                 }
                 break;
             }
+
 
             if(checkIfGameIsOver(snakeHead)) {
                 timeline.stop();
@@ -159,6 +163,17 @@ public class Controller implements Initializable {
     @FXML
     void addBodyPart(ActionEvent event) {
         addSnakeTail();
+    }
+
+    @FXML
+    void handleInsaneMode() {
+        // FIXME: Virker ikke helt, som den skal. Skal man bruge EventHandler her?
+        /*if (insaneModeCheckBox.isSelected()) {
+            insaneModeCheckBox.setSelected(true);
+        } else {
+            insaneModeCheckBox.setSelected(false);
+        }*/
+        insaneModeCheckBox.setSelected(true);
     }
 
     // Snake head is moved in the specified direction

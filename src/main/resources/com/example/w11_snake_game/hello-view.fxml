@@ -11,6 +11,6 @@
         <!--<Button layoutX="512.0" layoutY="32.0" mnemonicParsing="false" onAction="#addBodyPart" text="Add" />-->
       <Label fx:id="scoreLabel" layoutX="163.0" layoutY="36.0" text="Score:" />
       <Label fx:id="snakeLengthLabel" layoutX="323.0" layoutY="36.0" text="Snake Length:" />
-      <CheckBox fx:id="insaneModeCheckbox" layoutX="496.0" layoutY="36.0" mnemonicParsing="false" text="Insane Mode" />
+      <CheckBox fx:id="insaneModeCheckbox" layoutX="496.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleInsaneMode" text="Insane Mode" />
     </children>
 </AnchorPane>
