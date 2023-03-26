@@ -2,6 +2,7 @@ package com.example.w11_snake_game;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -111,6 +113,16 @@ public class Controller implements Initializable {
                 }
                 break;
             }
+
+            Rotate rotate = new Rotate(90,anchorPane.getWidth()/2,anchorPane.getHeight()/2);
+            while (gameTicks>0) {
+                int randomSpawn = (int) (Math.random() * 100) + 1;
+                if (randomSpawn >= 1 && randomSpawn <= 5) {
+                    anchorPane.getTransforms().add(rotate);
+                }
+                break;
+            }
+
             if(checkIfGameIsOver(snakeHead)) {
                 timeline.stop();
             }
