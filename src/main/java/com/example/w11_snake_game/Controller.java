@@ -103,6 +103,14 @@ public class Controller implements Initializable {
             //System.out.println("Snake Head Position: " + (xPos + snakeHead.getX()) + ", " + (yPos + snakeHead.getY()));
             eatFood();
             gameTicks++;
+            // move food at random
+            while (gameTicks>0) {
+                int randomSpawn = (int) (Math.random() * 100) + 1;
+                if (randomSpawn >= 1 && randomSpawn <= 10) {
+                    food.moveFood();
+                }
+                break;
+            }
             if(checkIfGameIsOver(snakeHead)) {
                 timeline.stop();
             }
