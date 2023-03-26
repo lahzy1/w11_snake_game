@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    private final Double snakeSize = 50.0;
+    private Double snakeSize = 100.0;
+    private Double foodSize = 50.0;
     private Rectangle snakeHead;
     private Rectangle snakeTail1;
     double xPos;
@@ -33,7 +34,6 @@ public class Controller implements Initializable {
     Food food;
 
     int score = 0;
-
     int snakeLength = 2;
 
     // The direction the snake is moving at start
@@ -55,8 +55,8 @@ public class Controller implements Initializable {
     @FXML
     private Label scoreLabel, snakeLengthLabel;
 
-
     Timeline timeline;
+    private double tickLength = 0.3;
 
     private boolean canChangeDirection;
 
@@ -95,7 +95,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        timeline = new Timeline(new KeyFrame(Duration.seconds(0.3), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(tickLength), e -> {
             positions.add(new Position(snakeHead.getX() + xPos, snakeHead.getY() + yPos));
             moveSnakeHead(snakeHead);
             for (int i = 1; i < snakeBody.size(); i++) {
@@ -106,18 +106,26 @@ public class Controller implements Initializable {
             eatFood();
             gameTicks++;
             // move food at random
-            while (gameTicks>0) {
+            while (gameTicks > 0) {
                 int randomSpawn = (int) (Math.random() * 100) + 1;
-                if (randomSpawn >= 1 && randomSpawn <= 10) {
+                int randomSpawnUpperBorder = 10;
+                if (tickLength <= tickLength / 2) {
+                    randomSpawnUpperBorder = randomSpawnUpperBorder / 2;
+                }
+                if (randomSpawn >= 1 && randomSpawn <= randomSpawnUpperBorder) {
                     food.moveFood();
                 }
                 break;
             }
-
-            Rotate rotate = new Rotate(90,anchorPane.getWidth()/2,anchorPane.getHeight()/2);
-            while (gameTicks>0) {
-                int randomSpawn = (int) (Math.random() * 100) + 1;
-                if (randomSpawn >= 1 && randomSpawn <= 5) {
+            // rotate at random
+            Rotate rotate = new Rotate(90, anchorPane.getWidth() / 2, anchorPane.getHeight() / 2);
+            while (gameTicks > 0) {
+                int rotateRandom = (int) (Math.random() * 100) + 1;
+                int randomSpawnUpperBorder = 5;
+                if (tickLength <= tickLength / 2) {
+                    randomSpawnUpperBorder = randomSpawnUpperBorder / 2;
+                }
+                if (rotateRandom >= 1 && rotateRandom <= randomSpawnUpperBorder) {
                     anchorPane.getTransforms().add(rotate);
                 }
                 break;
@@ -127,7 +135,7 @@ public class Controller implements Initializable {
                 timeline.stop();
             }
         }));
-        food = new Food(-50,-50, anchorPane, snakeSize);
+        food = new Food(-50, -50, anchorPane, foodSize);
     }
 
     // Changes direction with key pressed
@@ -185,7 +193,6 @@ public class Controller implements Initializable {
                 snakeBody.get(1).getX() + xPos + snakeSize,
                 snakeBody.get(1).getY() + yPos,
                 snakeSize, snakeSize);
-        //todo
         snakeTail.setFill(Color.rgb(0, 43, 54));
         snakeBody.add(snakeTail);
         anchorPane.getChildren().add(snakeTail);
