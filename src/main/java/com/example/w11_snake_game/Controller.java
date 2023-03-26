@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    private Double snakeSize = 100.0;
+    private Double snakeSize = 50.0;
     private Double foodSize = 50.0;
     private Rectangle snakeHead;
     private Rectangle snakeTail1;
@@ -223,7 +223,7 @@ public class Controller implements Initializable {
     }
 
     private void eatFood(){
-        if(xPos + snakeHead.getX() == food.getPosition().getXPos() && yPos + snakeHead.getY() == food.getPosition().getYPos()){
+        if (xPos + snakeHead.getX() == food.getPosition().getXPos() && yPos + snakeHead.getY() == food.getPosition().getYPos()) {
             System.out.println("Eat food");
             foodCantSpawnInsideSnake();
             addSnakeTail();
@@ -231,6 +231,11 @@ public class Controller implements Initializable {
             scoreLabel.setText("Score: " + score);
             snakeLength++;
             snakeLengthLabel.setText("Snake Length: " + snakeLength);
+
+            /*if (food.getFoodType().equals(Food.FoodType.SPEED))
+            {
+                tickLength = tickLength - 0.15;
+            } else tickLength = 0.3;*/
         }
     }
 

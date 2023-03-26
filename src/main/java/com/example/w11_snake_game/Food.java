@@ -7,9 +7,15 @@ import javafx.scene.shape.Rectangle;
 import java.util.Random;
 
 public class Food {
+    public enum FoodType {
+        NORMAL, SPEED, BIGHEAD
+    }
+
+    private FoodType foodType;
+
     private Position position;
     private Rectangle rectangle;
-    private Color color = Color.rgb(133, 153, 0);
+    private Color normalColor = Color.rgb(133, 153, 0);
     private Color speedColor = Color.rgb(57,18,215);
     private AnchorPane anchorPane;
     private Random random = new Random();
@@ -20,8 +26,17 @@ public class Food {
         this.size = (int) size;
         position = new Position(xPos, yPos);
         rectangle = new Rectangle(position.getXPos(), position.getYPos(), size, size);
-        rectangle.setFill(color);
+        rectangle.setFill(normalColor);
         anchorPane.getChildren().add(rectangle);
+        foodType = FoodType.NORMAL;
+    }
+
+    public FoodType getFoodType() {
+            return foodType;
+    }
+
+    public void setFoodType(FoodType foodType) {
+        this.foodType = foodType;
     }
 
     public Position getPosition() {
@@ -29,7 +44,9 @@ public class Food {
     }
 
     public void moveFood() {
-        spawnFood();
+        if (random.nextInt(10) == 0) {
+            spawnSpeedFood();
+        } else spawnFood();
     }
 
     private void spawnFood() {
@@ -41,8 +58,11 @@ public class Food {
         position.setXPos(positionX * size);
         position.setYPos(positionY * size);
         System.out.println("Food Position: " + (positionX * size) + ", " + (positionY * size));
+
+        rectangle.setFill(normalColor);
     }
-    private void SpawnSpeedFood(){
+
+    private void spawnSpeedFood() {
         int positionX = random.nextInt(12);
         int positionY = random.nextInt(12);
         rectangle.setX(positionX * size);
@@ -53,6 +73,6 @@ public class Food {
         position.setYPos(positionY * size);
         System.out.println("Food Position: " + (positionX * size) + ", " + (positionY * size));
 
-
+        // få fat i "food" fra Controller klassen.
     }
 }
